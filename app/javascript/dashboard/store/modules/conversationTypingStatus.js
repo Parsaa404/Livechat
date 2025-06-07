@@ -2,11 +2,15 @@ import * as types from '../mutation-types';
 import ConversationAPI from '../../api/inbox/conversation';
 const state = {
   records: {},
+  userTypingPreviewText: {},
 };
 
 export const getters = {
   getUserList: $state => id => {
     return $state.records[Number(id)] || [];
+  },
+  getUserTypingPreviewText: $state => id => {
+    return $state.userTypingPreviewText[Number(id)] || '';
   },
 };
 
@@ -29,6 +33,9 @@ export const actions = {
       conversationId,
       user,
     });
+  },
+  setUserTypingPreviewText: ({ commit }, { conversationId, text }) => {
+    commit('SET_USER_TYPING_PREVIEW_TEXT', { conversationId, text });
   },
 };
 
@@ -59,6 +66,12 @@ export const mutations = {
     $state.records = {
       ...$state.records,
       [conversationId]: updatedRecords,
+    };
+  },
+  SET_USER_TYPING_PREVIEW_TEXT: ($state, { conversationId, text }) => {
+    $state.userTypingPreviewText = {
+      ...$state.userTypingPreviewText,
+      [conversationId]: text,
     };
   },
 };

@@ -99,13 +99,13 @@ export default {
       this.userInput = `${this.userInput}${emoji} `;
     },
     onTypingOff() {
-      this.toggleTyping('off');
+      this.toggleTyping('off', '');
     },
     onTypingOn() {
-      this.toggleTyping('on');
+      this.toggleTyping('on', this.userInput);
     },
-    toggleTyping(typingStatus) {
-      this.$store.dispatch('conversation/toggleUserTyping', { typingStatus });
+    toggleTyping(typingStatus, text = '') {
+      this.$store.dispatch('conversation/toggleUserTyping', { typingStatus, text });
     },
     focusInput() {
       this.$refs.chatInput.focus();

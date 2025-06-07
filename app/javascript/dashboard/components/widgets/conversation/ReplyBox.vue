@@ -398,6 +398,9 @@ export default {
       const { slug = '' } = portal;
       return slug;
     },
+    userTypingPreviewText() {
+      return this.$store.getters['conversationTypingStatus/getUserTypingPreviewText'](this.conversationId);
+    },
   },
   watch: {
     currentChat(conversation, oldConversation) {
@@ -1258,6 +1261,9 @@ export default {
       :title="$t('CONVERSATION.REPLYBOX.UNDEFINED_VARIABLES.TITLE')"
       :description="undefinedVariableMessage"
     />
+    <div v-if="userTypingPreviewText" class="text-xs italic text-gray-400 mb-1 px-4">
+      {{ userTypingPreviewText }}
+    </div>
   </div>
 </template>
 

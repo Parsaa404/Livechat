@@ -119,13 +119,17 @@ class ActionCableConnector extends BaseActionCableConnector {
     this.fetchConversationStats();
   };
 
-  onTypingOn = ({ conversation, user }) => {
+  onTypingOn = ({ conversation, user, text = '' }) => {
     const conversationId = conversation.id;
 
     this.clearTimer(conversationId);
     this.app.$store.dispatch('conversationTypingStatus/create', {
       conversationId,
       user,
+    });
+    this.app.$store.dispatch('conversationTypingStatus/setUserTypingPreviewText', {
+      conversationId,
+      text,
     });
     this.initTimer({ conversation, user });
   };
@@ -137,6 +141,10 @@ class ActionCableConnector extends BaseActionCableConnector {
     this.app.$store.dispatch('conversationTypingStatus/destroy', {
       conversationId,
       user,
+    });
+    this.app.$store.dispatch('conversationTypingStatus/setUserTypingPreviewText', {
+      conversationId,
+      text: '',
     });
   };
 
